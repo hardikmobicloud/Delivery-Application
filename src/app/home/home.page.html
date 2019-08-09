@@ -1,0 +1,179 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-button slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-button>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Order Details
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" scrollable="false">
+  <ion-grid class="bg-light-tint">
+    <ion-row>
+      <ion-col size-md="6" offset-md="3">
+
+        <ion-grid class="border-light-shade ion-margin bg-contrast">
+          <ion-row>
+            <ion-col>
+              <ion-label><p>Order No</p></ion-label>
+            </ion-col>
+            <ion-col text-right>
+              <ion-label><p>Payment</p></ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="mg-top-neg">
+            <ion-col size="9">
+              <ion-label><h3>#AWB28OPX389</h3></ion-label>
+            </ion-col>
+            <ion-col text-right size="3">
+              <ion-text color="primary">
+                UPI
+              </ion-text>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="border-light-shade ion-margin bg-contrast">
+          <ion-row>
+            <ion-col>
+              <ion-label><p>Delivery Address</p></ion-label>
+            </ion-col>
+          </ion-row>
+          <ion-row class="mg-top-neg">
+            <ion-col size="8">
+              <ion-label>
+                <h3>Anand Thiyagarasu</h3>
+              </ion-label>
+              <ion-label>
+                <h3>12th Street, Ram Nagar</h3>
+              </ion-label>
+              <ion-label>
+                <h3>Madipakkam, Chennai</h3>
+              </ion-label>
+            </ion-col>
+            <ion-col text-right size="4">
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="6">
+                    <ion-icon
+                      class="circle border-primary padding"
+                      color="primary"
+                      name="call"
+                    ></ion-icon>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-icon
+                      class="circle border-primary padding"
+                      color="primary"
+                      name="pin"
+                    ></ion-icon>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+        <ion-grid class="border-light-shade ion-margin bg-contrast">
+          <ion-row>
+            <ion-col>
+              <ion-label><p>Order Summary</p></ion-label>
+            </ion-col>
+          </ion-row>
+
+
+          <ion-row class="border-bottom-light-shade row-space">
+            <ion-col size="2">
+                <img src="https://www.bigbasket.com/media/uploads/p/l/40112945_1-organic-tattva-organic-mustard-oil.jpg">
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                <h3>Organic Tattva Organic - Mustard Oil, 1 L Pet bottel</h3>
+                <ion-text color="success">
+                  <h6>Available</h6>
+                </ion-text>
+                
+                <ion-button color="light" expand="full">
+                  <ion-label>
+                      <h5>
+                        Quantity:  2
+                        <ion-icon slot="end" src="../../assets/icons/_ionicons_svg_md-arrow-dropdown.svg"></ion-icon>
+                      </h5>
+                  </ion-label>
+                </ion-button>
+              </ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-label><h3>$1000.00</h3></ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row class="border-bottom-light-shade row-space">
+            <ion-col size="2">
+                <img src="https://www.bigbasket.com/media/uploads/p/l/40109378_5-bb-royal-organic-moong-dal-unpolished.jpg">
+            </ion-col>
+            <ion-col>
+              <ion-label>
+                <h3>bb Royal Organic - Moong Dal, Unpolished, 2 kg</h3>
+                <ion-text color="danger">
+                  <h6>Out of stock</h6>
+                </ion-text>
+                
+                <ion-button color="light" expand="full" disabled>
+                  <ion-label>
+                      <h5>
+                        Quantity:  2
+                        <ion-icon slot="end" src="../../assets/icons/_ionicons_svg_md-arrow-dropdown.svg"></ion-icon>
+                      </h5>
+                  </ion-label>
+                </ion-button>
+              </ion-label>
+            </ion-col>
+            <ion-col size="3">
+              <ion-label><h3><s>$1000.00</s></h3></ion-label>
+            </ion-col>
+          </ion-row>
+
+          <ion-row>
+              <ion-col>
+                <ion-label><h3>Sub total</h3></ion-label>
+              </ion-col>
+              <ion-col size="3">
+                  <ion-label><h3>$3899.00</h3></ion-label>
+              </ion-col>
+            </ion-row>
+
+          <ion-row class="border-bottom-light-shade">
+              <ion-col>
+                <ion-label><h3>Delivery charges</h3></ion-label>
+              </ion-col>
+              <ion-col size="3">
+                <ion-label><h3>$49.00</h3></ion-label>
+              </ion-col>
+            </ion-row>
+
+          <ion-row class="row-space">
+            <ion-col>
+              <ion-label><h3>Total</h3></ion-label>
+            </ion-col>
+            <ion-col size="3">
+                <ion-label><h3>$3948.00</h3></ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--
+      <div *ngIf="selectedItem" padding>
+        You navigated here from <b>{{selectedItem.title }}</b>
+      </div>
+    -->
+</ion-content>

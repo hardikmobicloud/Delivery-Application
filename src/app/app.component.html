@@ -1,0 +1,40 @@
+<ion-app>
+  <ion-split-pane>
+    <ion-menu type="overlay" side="end">
+      <ion-header>
+        <ion-toolbar class="ion-padding-bottom ion-padding-top">
+          <ion-avatar slot="start"  class="ion-margin-start">
+              <img src="https://lh3.googleusercontent.com/-Z49zuZFbZw0/AAAAAAAAAAI/AAAAAAAAAAA/ACHi3rfz7J0balrAXjH-ohx91Sw38Pol0A.CMID/s192-c/photo.jpg">
+            </ion-avatar>
+          <ion-label slot="start"  class="ion-margin-start">
+            <h2>Anand Thiyagarasu</h2>
+            <p>Chennai, Tamilnadu</p>
+          </ion-label>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+              <ion-label>
+                {{p.title}}
+              </ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+      <ion-footer>
+        <ion-toolbar>
+          <ion-buttons slot="secondary">
+            <ion-button [routerLink]="['/detail']" routerLinkActive="router-link-active">
+              <ion-icon slot="icon-only" name="log-out"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+          <ion-title>Logout</ion-title>
+          </ion-toolbar>
+      </ion-footer>
+    </ion-menu>
+    <ion-router-outlet main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

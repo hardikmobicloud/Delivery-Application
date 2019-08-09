@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>G2D Delivery</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen="true" scrollable="false">
+    <ion-grid class="bg-light-tint">
+      <ion-row>
+        <ion-col
+          size-md="6"
+          offset-md="3"  
+        >
+
+        <div *ngIf="hasLoginSubmitted===false" style="margin:55% 0;">
+            <ion-text color="danger" class="ion-text-center">
+              <h6>{{ loginErrorMsg }}</h6>
+            </ion-text>
+            <form (submit)="onLoginSubmit()">
+              <div style="background:#fff;" class="ion-padding">
+                <div>
+                  <ion-label position="stacked">Mobile No. <ion-text color="danger">*</ion-text></ion-label>
+                  <ion-input [(ngModel)]="mobileNo" [ngModelOptions]="{standalone: true}" class="border-bottom-light-shade" required type="number"></ion-input>
+                  <ion-button expand="block" type="submit" class="ion-margin-top">Login</ion-button>
+                </div>
+               
+              </div>
+            </form>
+        </div>
+
+        <div *ngIf="hasLoginSubmitted===true" style="margin:35% 0;">
+            <ion-text color="danger" class="ion-text-center">
+              <h6>{{ otpErrorMsg }}</h6>
+            </ion-text>
+            <form (submit)="onOTPSubmit()">
+              <div style="background:#fff;" class="ion-padding">
+                <div>
+                    <ion-label position="stacked">Enter OTP <ion-text color="danger">*</ion-text></ion-label>
+                    <h1>
+                      <ion-input 
+                        [(ngModel)]="otpInput" [ngModelOptions]="{standalone: true}"
+                        style="letter-spacing: 0.5em;"
+                        class="border-bottom-light-shade ion-text-center" 
+                        required type="number" max="9999" min="0"></ion-input>
+                    </h1>
+                    <ion-button expand="block" type="submit" class="ion-margin-top">Submit</ion-button>
+  
+                    <div class="ion-padding ion-text-center">
+                      <ion-label><p>Didn't receive the code?</p></ion-label>
+                      <p>
+                          <ion-text color="primary">Resend code</ion-text>
+                      </p>
+                      </div>
+                </div>
+              </div>
+            </form>
+        </div>
+
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+</ion-content>
