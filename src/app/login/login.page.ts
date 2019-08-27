@@ -15,8 +15,8 @@ export class LoginPage implements OnInit {
   mobileNo = '';
   hasLoginSubmitted = false;
   otpInput: number;
-  otp = 1111;
-  shopId = '94';
+  otp: number;
+  shopId: string;
   isValidMobileNo = true;
   loginErrorMsg: string;
   otpErrorMsg: string;
@@ -42,25 +42,33 @@ export class LoginPage implements OnInit {
     this.loginService.doLogin( this.mobileNo ).subscribe( data => {
       console.log( 'data--->>>' , data );
       this.hideLoading();
-      // TODO check the response and show OTP on SUCCESS & Error message on FAILURE
 
-      /**
-       * Make it true only if mobile number is valid and received the otp in response
-       * To HIDE login and SHOW otp
-       */
-      this.hasLoginSubmitted = true;
+      if ( data.status === 'success' ) {
+        this.otp = data.result && data.result.otp ? data.result.otp : 0;
+        this.shopId = data.result && data.result.shop_id ? data.result.shop_id : '';
+
+        /**
+         * Make it true only if mobile number is valid and received the otp in response
+         * To HIDE login and SHOW otp
+         */
+        this.hasLoginSubmitted = true;
+      } else {
+        this.showLoginErrorMsg( data.message ? data.message : 'Login has failed!' );
+      }
     });
   }
 
   onOTPSubmit() {
-    if ( this.otp ) {
-      if ( this.otpInput && this.otp === this.otpInput ) {
-        this.router.navigate( [`/pending/${this.shopId}`] );
-      } else {
-        this.showOtpErrorMsg( 'Invalid OTP!' );
+    this.hideOtpErrorMsg();
+
+    if ( this.otpInput.toString().length === 4 ) {
+      if ( this.otp ) {
+        if ( this.otpInput && this.otp === this.otpInput ) {
+          this.router.navigate( [`/pending/${this.shopId}`] );
+        } else {
+          this.showOtpErrorMsg( 'Invalid OTP!' );
+        }
       }
-    } else {
-      this.showOtpErrorMsg( 'You haven\'t enter your OTP!' );
     }
   }
 

@@ -12,21 +12,17 @@ const routes: Routes = [
     loadChildren: './login/login.module#LoginPageModule'
   },
   {
-    path: 'otp',
+    path: 'detail',
     children : [
       {
         path : '',
-        loadChildren: './otp/otp.module#OtpPageModule'
+        loadChildren : () => import('./home/home.module').then(m => m.HomePageModule)
       },
       {
-        path : ':mobileNo',
-        loadChildren: './otp/otp.module#OtpPageModule'
+        path : ':customerId/:orderId',
+        loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) // Just another way to loadChildren
       }
     ]
-  },
-  {
-    path: 'detail',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'pending',

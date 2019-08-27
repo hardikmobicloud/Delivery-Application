@@ -19,8 +19,8 @@ export class LoginService {
     return this.httpClient.post(
               'http://mobicloudtechnologies.com/grocery/api/delivery_api.php?function=deliveryLogin' ,
               payload ,
-              {responseType: 'text', headers}
-              // {responseType: 'json', headers}
+              // {responseType: 'text', headers}
+              {responseType: 'json', headers}
             );
   }
 }

@@ -22,7 +22,6 @@ export class ListPage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
-
       if ( !paramMap.has( 'shopId' ) ) {
         this.router.navigate( [ `/login` ] );
         return;
@@ -39,59 +38,12 @@ export class ListPage implements OnInit {
   fetchPendingOrders( forceFetch: boolean = false ) {
     if ( this.orders.length < 1 || forceFetch ) {
       this.showLoading();
-      this.orderService.getOrders( this.shopId ).subscribe( data => {
+      this.orderService.loadOrderList( this.shopId );
+      this.orderService.getOrdersRx().subscribe( orders => {
         this.hideLoading();
-        // TODO Replace with actual data from the api response
-        this.fillMockData();
-        console.log('MOCK DATA FILLED!!!');
+        this.orders = orders;
       });
     }
-  }
-
-  fillMockData() {
-    this.orders = [
-      {
-          "order_id": "2",
-          "customer_id": null,
-          "first_name": "Yogesh",
-          "last_name": "",
-          "flat_plot_no": "105",
-          "building_name": "Lunkad plaza",
-          "landmark": "Viman nagar",
-          "location": "",
-          "city": "",
-          "order_date": "01\/01\/1970",
-          "total_amount": null,
-          "order_status": "3"
-      },
-      {
-          "order_id": "2",
-          "customer_id": null,
-          "first_name": "Yogesh",
-          "last_name": "",
-          "flat_plot_no": "105",
-          "building_name": "Lunkad plaza",
-          "landmark": "Viman nagar",
-          "location": "",
-          "city": "",
-          "order_date": "01\/01\/1970",
-          "total_amount": null,
-          "order_status": "3"
-      },
-      {
-          "order_id": "2",
-          "customer_id": null,
-          "first_name": "Yogesh",
-          "last_name": "",
-          "flat_plot_no": "102",
-          "building_name": "Lunkad plaza",
-          "landmark": "Viman nagar",
-          "location": "",
-          "city": "",
-          "order_date": "01\/01\/1970",
-          "total_amount": null,
-          "order_status": "3"
-      }];
   }
 
   showLoading( message: string = '') {
@@ -103,7 +55,9 @@ export class ListPage implements OnInit {
   }
 
   hideLoading() {
-    this.loadingCtrlr.dismiss();
+    try {
+      this.loadingCtrlr.dismiss();
+    } catch ( e ) { }
   }
 
   // add back when alpha.4 is out

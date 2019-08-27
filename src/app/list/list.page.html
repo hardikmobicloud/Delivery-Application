@@ -120,14 +120,14 @@
           <ion-row class="mg-top-neg">
             <ion-col size="8" class="word-break-all">
               <ion-label>
-                <h3 class="padding-bottom">{{ order.first_name +' '+ order.last_name }} Thiyagarasu</h3>
+                <h3 class="padding-bottom">{{ order.first_name +' '+ (order.last_name ? order.last_name : '') }}</h3>
               </ion-label>
               <ion-label>
                 <h3 class="padding-bottom">{{ order.flat_plot_no + ', ' + order.building_name }}</h3>
               </ion-label>
-              <!-- <ion-label>
-                <h3 class="padding-bottom">{{ order.location + ', ' + order.city }}</h3>
-              </ion-label> -->
+              <ion-label>
+                <h3 class="padding-bottom">{{ order.location }}</h3>
+              </ion-label>
               <ion-label *ngIf="order.landmark!=''">
                 <h3>Landmark: {{ order.landmark }}</h3>
               </ion-label>
@@ -158,7 +158,7 @@
           <ion-row>
             <ion-col size="2"></ion-col>
             <ion-col size="8">
-              <ion-button expand="block" [routerLink]="['/detail']" routerLinkActive="router-link-active">
+              <ion-button expand="block" [routerLink]="'/detail/'+order.customer_id+'/'+order.order_id" routerLinkActive="router-link-active">
                 View Order Details
               </ion-button>
             </ion-col>
