@@ -62,14 +62,18 @@ export class HomePage implements OnInit {
       this.ordersService.updateProductQuantity(this.orderId , product.product_id, event.detail.value )
           .subscribe( data => {
               if ( data.status === 'success' ) {
-                this.presentToast( 'Quantity updated successfully!' );
+                this.presentToast( data.message );
+              } else {
+                this.presentToast( data.message , 2000, 'danger' );
               }
           });
     } else { // Remove Product
       this.ordersService.removeProduct( this.orderId , product.product_id )
           .subscribe( data => {
-              if( data.status === 'success' ) {
-                this.presentToast( 'Product has been removed successfully!' );
+              if ( data.status === 'success' ) {
+                this.presentToast( data.message );
+              } else {
+                this.presentToast( data.message , 2000, 'danger' );
               }
           });
     }
@@ -79,12 +83,12 @@ export class HomePage implements OnInit {
     this.quantitySelect._results[i].open();
   }
 
-  async presentToast( message: string = '' , duration: number = 2000 ) {
+  async presentToast( message: string = '' , duration: number = 2000 , color: string = 'primary' ) {
     const toast = await this.toastController.create({
       message,
       duration,
       position: 'bottom',
-      color : 'primary'
+      color
     });
     toast.present();
   }
