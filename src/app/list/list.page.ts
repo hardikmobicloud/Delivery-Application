@@ -38,10 +38,11 @@ export class ListPage implements OnInit {
   fetchPendingOrders( forceFetch: boolean = false ) {
     if ( this.orders.length < 1 || forceFetch ) {
       this.showLoading();
-      this.orderService.loadOrderList( this.shopId );
-      this.orderService.getOrdersRx().subscribe( orders => {
-        this.hideLoading();
-        this.orders = orders;
+      this.orderService.getPendeingOrders( this.shopId  ).subscribe( data => {
+        if ( data.status === 'success' ) {
+          this.hideLoading();
+          this.orders = data.result;
+        }
       });
     }
   }

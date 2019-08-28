@@ -37,7 +37,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-
+<!-- 
         <ion-grid class="border-light-shade ion-margin bg-contrast">
           <ion-row>
             <ion-col>
@@ -82,7 +82,7 @@
               </ion-grid>
             </ion-col>
           </ion-row>
-        </ion-grid>
+        </ion-grid> -->
 
         <ion-grid class="border-light-shade ion-margin bg-contrast">
           <ion-row>
@@ -92,7 +92,7 @@
           </ion-row>
 
 
-          <ion-row *ngFor="let product of productsList" class="border-bottom-light-shade row-space">
+          <ion-row *ngFor="let product of productsList; let ind = index" class="border-bottom-light-shade row-space">
             <ion-col size="2">
                 <img [attr.src]="product.product_image">
             </ion-col>
@@ -102,15 +102,13 @@
                 <ion-text color="success">
                   <h6>Available</h6>
                 </ion-text>
-                
-                <ion-button color="light" expand="full">
-                  <ion-label>
-                      <h5>
-                        Quantity:  {{ product.product_quantity }}
-                        <ion-icon slot="end" src="../../assets/icons/_ionicons_svg_md-arrow-dropdown.svg"></ion-icon>
-                      </h5>
-                  </ion-label>
-                </ion-button>
+                <ion-button color="light" expand="full" class="font-13" (click)="onSelectClick(ind)" #quantitySelect>
+                        <ion-label>Quantity</ion-label>
+                        <ion-select (ionChange)="onChangeQuantity( $event , product )" [interfaceOptions]="customAlertOptions" class="quantity-select" okText="Confirm" cancelText="Cancel">
+                          <ion-select-option value="0">0 (Remove Product)</ion-select-option>
+                          <ion-select-option *ngFor="let i of arrayFill(product.product_quantity)" [selected]="i == product.product_quantity">{{i}}</ion-select-option>
+                        </ion-select>
+                  </ion-button>
               </ion-label>
             </ion-col>
             <ion-col size="3">

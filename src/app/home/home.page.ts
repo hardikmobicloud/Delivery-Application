@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, IonSelect, ToastController } from '@ionic/angular';
 
 import { OrdersService } from '../services/orders.service';
 
@@ -17,10 +17,17 @@ export class HomePage implements OnInit {
   productsList    = [];
   order: any      = {};
 
+  customAlertOptions: any = {
+    header: 'Select Quantity'
+  };
+
+  @ViewChildren(IonSelect) quantitySelect: IonSelect[];
+
   constructor( private router: Router,
                private activatedRoute: ActivatedRoute,
                private loadingCtrl: LoadingController,
-               private ordersService: OrdersService ) {}
+               private ordersService: OrdersService,
+               public toastController: ToastController ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
@@ -38,13 +45,50 @@ export class HomePage implements OnInit {
     this.showLoading();
     this.ordersService.getOrderDetails( this.custId, this.orderId ).subscribe( ( data ) => {
       if ( data.status && data.status === 'success' && data.result ) {
-        this.productsList     = data.result.product_info;
-        this.orderInfo        = data.result.Order_info;
-        this.order  = this.ordersService.getOrderById( data.result.Order_info.order_id );
+        this.productsList = data.result.product_info;
+        this.orderInfo    = data.result.Order_info;
+        this.order        = this.ordersService.getOrderById( data.result.Order_info.order_id );
         this.hideLoading();
       }
     });
   }
+
+  arrayFill( x: string ) {
+    return Array( parseInt( x , 10 ) ).fill().map( ( n, i ) => i + 1 );
+  }
+
+  onChangeQuantity( event, product ) {
+    if ( parseInt( event.detail.value , 10 ) > 0 ) { // Update product quantity
+      this.ordersService.updateProductQuantity(this.orderId , product.product_id, event.detail.value )
+          .subscribe( data => {
+              if ( data.status === 'success' ) {
+                this.presentToast( 'Quantity updated successfully!' );
+              }
+          });
+    } else { // Remove Product
+      this.ordersService.removeProduct( this.orderId , product.product_id )
+          .subscribe( data => {
+              if( data.status === 'success' ) {
+                this.presentToast( 'Product has been removed successfully!' );
+              }
+          });
+    }
+  }
+
+  onSelectClick( i: number ) {
+    this.quantitySelect._results[i].open();
+  }
+
+  async presentToast( message: string = '' , duration: number = 2000 ) {
+    const toast = await this.toastController.create({
+      message,
+      duration,
+      position: 'bottom',
+      color : 'primary'
+    });
+    toast.present();
+  }
+
   showLoading( message: string = '') {
     this.loadingCtrl.create({
       message
