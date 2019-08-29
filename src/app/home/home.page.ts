@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
-import { LoadingController, IonSelect, ToastController } from '@ionic/angular';
+import { LoadingController, IonSelect, ToastController, AlertController } from '@ionic/angular';
 
 import { OrdersService } from '../services/orders.service';
 
@@ -27,7 +27,8 @@ export class HomePage implements OnInit {
                private activatedRoute: ActivatedRoute,
                private loadingCtrl: LoadingController,
                private ordersService: OrdersService,
-               public toastController: ToastController ) {}
+               public toastController: ToastController,
+               public alertController: AlertController ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
@@ -43,7 +44,7 @@ export class HomePage implements OnInit {
 
   fetchOrderDetails() {
     this.showLoading();
-    this.ordersService.getOrderDetails( this.custId, this.orderId ).subscribe( ( data ) => {
+    this.ordersService.getOrderDetails( this.custId, this.orderId ).subscribe( ( data: any ) => {
       if ( data.status && data.status === 'success' && data.result ) {
         this.productsList = data.result.product_info;
         this.orderInfo    = data.result.Order_info;
@@ -53,34 +54,38 @@ export class HomePage implements OnInit {
     });
   }
 
-  arrayFill( x: string ) {
-    return Array( parseInt( x , 10 ) ).fill().map( ( n, i ) => i + 1 );
+  onChangeQuantity( event, product ) {
+      this.ordersService.updateProductQuantity(this.orderId , product.product_id, event.detail.value )
+          .subscribe( (data: any) => {
+              if ( data.status === 'success' ) {
+                this.presentToast( data.message );
+              } else {
+                this.presentToast( data.message , 2000, 'danger' );
+              }
+          });
   }
 
-  onChangeQuantity( event, product ) {
-    if ( parseInt( event.detail.value , 10 ) > 0 ) { // Update product quantity
-      this.ordersService.updateProductQuantity(this.orderId , product.product_id, event.detail.value )
-          .subscribe( data => {
-              if ( data.status === 'success' ) {
-                this.presentToast( data.message );
-              } else {
-                this.presentToast( data.message , 2000, 'danger' );
-              }
-          });
-    } else { // Remove Product
+  onRemoveProduct( product: any ) {
+    this.presentAlertConfirm( () => {
       this.ordersService.removeProduct( this.orderId , product.product_id )
-          .subscribe( data => {
-              if ( data.status === 'success' ) {
-                this.presentToast( data.message );
-              } else {
-                this.presentToast( data.message , 2000, 'danger' );
-              }
-          });
-    }
+      .subscribe( (data: any) => {
+          if ( data.status === 'success' ) {
+            this.presentToast( data.message );
+            this.removeProductFromList( product.product_id );
+          } else {
+            this.presentToast( data.message , 2000, 'danger' );
+          }
+      });
+    });
+  }
+
+  removeProductFromList( productId: string ) {
+    this.productsList = this.productsList.filter( (product: any) => product.product_id !== productId );
   }
 
   onSelectClick( i: number ) {
-    this.quantitySelect._results[i].open();
+    const selectBox: any = this.quantitySelect;
+    selectBox.toArray()[i].open();
   }
 
   async presentToast( message: string = '' , duration: number = 2000 , color: string = 'primary' ) {
@@ -91,6 +96,31 @@ export class HomePage implements OnInit {
       color
     });
     toast.present();
+  }
+
+  async presentAlertConfirm( confirmHandler ) {
+    const alert = await this.alertController.create({
+      header: 'Confirm!',
+      message: 'Are you sure, you want to <strong>remove</strong> this product from the order?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary'
+        }, {
+          text: 'Confirm',
+          cssClass: 'secondary',
+          handler: confirmHandler
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  arrayFill( x: string ) {
+    const y = parseInt( x , 10 );
+    return Array(y).fill(y , 0 , y).map( ( n, i ) => i + 1 );
   }
 
   showLoading( message: string = '') {

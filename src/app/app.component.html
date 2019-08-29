@@ -25,9 +25,9 @@
         </ion-list>
       </ion-content>
       <ion-footer>
-        <ion-toolbar>
+        <ion-toolbar (click)="onLogoutClick()" [routerLink]="['/login']" routerLinkActive="router-link-active" style="outline:none;">
           <ion-buttons slot="secondary">
-            <ion-button [routerLink]="['/detail']" routerLinkActive="router-link-active">
+            <ion-button>
               <ion-icon slot="icon-only" name="log-out"></ion-icon>
             </ion-button>
           </ion-buttons>

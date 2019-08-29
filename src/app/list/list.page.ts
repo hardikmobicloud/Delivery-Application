@@ -38,7 +38,7 @@ export class ListPage implements OnInit {
   fetchPendingOrders( forceFetch: boolean = false ) {
     if ( this.orders.length < 1 || forceFetch ) {
       this.showLoading();
-      this.orderService.getPendeingOrders( this.shopId  ).subscribe( data => {
+      this.orderService.getPendeingOrders( this.shopId  ).subscribe( (data: any) => {
         if ( data.status === 'success' ) {
           this.hideLoading();
           this.orders = data.result;

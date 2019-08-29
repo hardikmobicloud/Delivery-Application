@@ -14,7 +14,7 @@ export class OrdersService {
   constructor( private httpClient: HttpClient ) {}
 
   cachePendingOrders( request ) {
-    request.subscribe( data => {
+    request.subscribe( (data: any) => {
       if ( data.status === 'success' ) {
         this.orderList = data.result;
       }

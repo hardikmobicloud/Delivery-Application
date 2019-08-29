@@ -39,7 +39,7 @@ export class LoginPage implements OnInit {
   doLogin() {
     this.showLoading( 'Please wait' );
     this.hideLoginErrorMsg();
-    this.loginService.doLogin( this.mobileNo ).subscribe( data => {
+    this.loginService.doLogin( this.mobileNo ).subscribe( (data: any) => {
       console.log( 'data--->>>' , data );
       this.hideLoading();
 
