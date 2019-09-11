@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {}
 
   onLoginSubmit() {
-    if ( this.mobileNo.toString().length > 3 ) {
+    if ( this.mobileNo.toString().length === 10 ) {
       this.doLogin();
     } else {
       this.showLoginErrorMsg( 'Enter valid mobile no.' );
@@ -40,7 +40,6 @@ export class LoginPage implements OnInit {
     this.showLoading( 'Please wait' );
     this.hideLoginErrorMsg();
     this.loginService.doLogin( this.mobileNo ).subscribe( (data: any) => {
-      console.log( 'data--->>>' , data );
       this.hideLoading();
 
       if ( data.status === 'success' ) {

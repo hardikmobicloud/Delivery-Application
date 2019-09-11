@@ -45,11 +45,11 @@ export class HomePage implements OnInit {
   fetchOrderDetails() {
     this.showLoading();
     this.ordersService.getOrderDetails( this.custId, this.orderId ).subscribe( ( data: any ) => {
+      this.hideLoading();
       if ( data.status && data.status === 'success' && data.result ) {
         this.productsList = data.result.product_info;
         this.orderInfo    = data.result.Order_info;
         this.order        = this.ordersService.getOrderById( data.result.Order_info.order_id );
-        this.hideLoading();
       }
     });
   }

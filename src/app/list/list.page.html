@@ -7,7 +7,7 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Pending Orders(2)
+      Pending Orders<span>({{orders.length}})</span>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -92,7 +92,9 @@
         </ion-grid>
 -->
 
-
+      <ion-text *ngIf="orders.length<1" color="dark" class="ion-text-center">
+        <h6>{{ orders.length < 1 ? "No pending orders available!" : "" }}</h6>
+      </ion-text>
       <ion-grid *ngFor="let order of orders" class="ion-margin bg-contrast">
           <ion-row>
             <ion-col>

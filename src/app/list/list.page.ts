@@ -39,8 +39,8 @@ export class ListPage implements OnInit {
     if ( this.orders.length < 1 || forceFetch ) {
       this.showLoading();
       this.orderService.getPendeingOrders( this.shopId  ).subscribe( (data: any) => {
+        this.hideLoading();
         if ( data.status === 'success' ) {
-          this.hideLoading();
           this.orders = data.result;
         }
       });

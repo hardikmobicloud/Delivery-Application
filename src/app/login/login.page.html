@@ -20,7 +20,8 @@
               <div style="background:#fff;" class="ion-padding">
                 <div>
                   <ion-label position="stacked">Mobile No. <ion-text color="danger">*</ion-text></ion-label>
-                  <ion-input [(ngModel)]="mobileNo" [ngModelOptions]="{standalone: true}" class="border-bottom-light-shade" required type="number"></ion-input>
+                  <ion-input inputmode="tel" [(ngModel)]="mobileNo" maxlength="10" [ngModelOptions]="{standalone: true}" class="border-bottom-light-shade" required style="padding-left:30px !important;"></ion-input>
+                  <ion-label _ngcontent-bnj-c1="" class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated" style="position: absolute;margin-top: -30px;">+91</ion-label>
                   <ion-button expand="block" type="submit" class="ion-margin-top">Login</ion-button>
                 </div>
                
@@ -46,9 +47,9 @@
                     <ion-button expand="block" type="submit" class="ion-margin-top">Submit</ion-button>
   
                     <div class="ion-padding ion-text-center">
-                      <ion-label><p>Didn't receive the code?</p></ion-label>
+                      <ion-label><p>Didn't receive the OTP?</p></ion-label>
                       <p>
-                          <ion-text color="primary">Resend code</ion-text>
+                          <ion-text (click)="doLogin()" color="primary">Resend OTP</ion-text>
                       </p>
                       </div>
                 </div>
