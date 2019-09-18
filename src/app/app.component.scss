@@ -9,7 +9,9 @@ ion-button{
     --box-shadow:none;
     --color : #fff;
   }
-  
+  .hide {
+    display: none;
+  }
   .circle {
     border-radius: 50%;
   }
@@ -74,12 +76,34 @@ ion-button{
   }
 
   .icon-trash {
-    font-size: 23px;
+    font-size: 18px;
     color: #666;
     position: absolute;
-    bottom: 15px;
+    bottom: 16px;
+  }
+
+  .icon-trash-label {
+    top: 7px;
+    position: relative;
+    font-size: 13px;
+    text-decoration: underline;
+    left: 12px;
   }
 
   .available {
     color : #057933;
   }
+  .remove-btn {
+    height: auto;
+  }
+  .remove-btn-icon {
+    position: relative;
+    top: 0px;
+  }
+
+  .remove-btn-label {
+    text-decoration: underline;
+    color : #000;
+  }
+
+  

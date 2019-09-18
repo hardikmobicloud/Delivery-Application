@@ -17,7 +17,7 @@ export class LoginService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json'});
 
     return this.httpClient.post(
-              'http://mobicloudtechnologies.com/grocery/api/delivery_api.php?function=deliveryLogin' ,
+              'http://newwavestech.com/grocery/api/delivery_api.php?function=deliveryLogin' ,
               payload ,
               // {responseType: 'text', headers}
               {responseType: 'json', headers}

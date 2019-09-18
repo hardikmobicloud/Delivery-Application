@@ -9,7 +9,7 @@ export class OrdersService {
 
   private headers     = new HttpHeaders({ 'Content-Type': 'application/json'});
   orderList = [];
-  private readonly apiUrl = 'http://mobicloudtechnologies.com/grocery/api/delivery_api.php';
+  private readonly apiUrl = 'http://newwavestech.com/grocery/api/delivery_api.php';
 
   constructor( private httpClient: HttpClient ) {}
 
@@ -35,25 +35,41 @@ export class OrdersService {
     return this.httpClient.post(
       `${this.apiUrl}?function=getOrdersDetail`,
       { customer_Id , order_id } ,
-      {responseType: 'json', headers: this.headers}
+      { responseType: 'json', headers: this.headers }
     );
   }
 
-  updateProductQuantity( order_id: string, product_id: string, product_quantity: string ) {
+  getCacellationReason() {
     return this.httpClient.post(
-      `${this.apiUrl}?function=updateOrRemoveProduct`,
-      { order_id , product_id , product_quantity } ,
-      {responseType: 'json', headers: this.headers}
+      `${this.apiUrl}?function=productRejectionReason`,
+      { responseType: 'json', headers: this.headers }
     );
   }
 
-  removeProduct( order_id: string, product_id: string ) {
+  bulkUpdate( order_id: string, productsArr = [] ) {
     return this.httpClient.post(
       `${this.apiUrl}?function=updateOrRemoveProduct`,
-      { order_id , product_id } ,
-      {responseType: 'json', headers: this.headers}
+      { customer_id: 2, product_list: productsArr } ,
+      { responseType: 'json', headers: this.headers }
     );
   }
+
+  // updateProductQuantity( order_id: string, product_id: string, product_quantity: string ) {
+  //   return this.httpClient.post(
+  //     `${this.apiUrl}?function=updateOrRemoveProduct`,
+  //     { order_id , product_id , product_quantity } ,
+  //     { responseType: 'json', headers: this.headers }
+  //   );
+  // }
+
+
+  // removeProduct( order_id: string, product_id: string ) {
+  //   return this.httpClient.post(
+  //     `${this.apiUrl}?function=updateOrRemoveProduct`,
+  //     { order_id , product_id } ,
+  //     { responseType: 'json', headers: this.headers }
+  //   );
+  // }
 
   getOrderById( orderId: string ) {
     let orderInfo: object;
