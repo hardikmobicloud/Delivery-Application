@@ -163,7 +163,11 @@ export class HomePage implements OnInit {
     this.hasChangesInQuantity = Object.keys( this.updatedProducts ).length > 0;
   }
 
-  getTotalAmount() {
+  getTotalAmount( orderInfo: any ) {
+    return this.getSubTotalAmount() - ( orderInfo.discount_amount ? orderInfo.discount_amount : 0 );
+  }
+
+  getSubTotalAmount() {
     let totalAmount = 0;
     this.productsList.forEach( (product: any , i: number) => {
       totalAmount +=  product.product_rate * product.product_quantity;

@@ -101,24 +101,25 @@
             <ion-col>
               <ion-label>
                 <h3>{{ product.product_title }}</h3>
-                <ion-text class="available">
+                <ion-text class="available hide">
                   <h6>Available</h6>
                 </ion-text>
-                <ion-button color="light" class="font-13" (click)="onSelectClick(ind)">
-                        <!-- <ion-label>Quantity</ion-label> -->
-                        <ion-select #quantitySelectElem (ionChange)="onChangeQuantity( $event , product )" [interfaceOptions]="customQuantitySelectOptions" class="quantity-select" okText="Confirm" cancelText="Cancel">
-                          <ion-select-option *ngFor="let i of arrayFill(product.product_quantity)" [selected]="i == product.product_quantity">{{i}}</ion-select-option>
+                <div style="width: 140%;">
+                  <ion-button color="light" class="font-13" (click)="onSelectClick(ind)">
+                          <!-- <ion-label>Quantity</ion-label> -->
+                          <ion-select #quantitySelectElem (ionChange)="onChangeQuantity( $event , product )" [interfaceOptions]="customQuantitySelectOptions" class="quantity-select" okText="Confirm" cancelText="Cancel">
+                            <ion-select-option *ngFor="let i of arrayFill(product.product_quantity)" [selected]="i == product.product_quantity">{{i}}</ion-select-option>
+                          </ion-select>
+                    </ion-button>
+
+                    <ion-button class="font-13 remove-btn" fill="clear" (click)="onRemoveSelectClick(ind)">
+                        <ion-icon name="trash" class="icon-trash remove-btn-icon"></ion-icon>
+                        <ion-label class="remove-btn-label">Remove</ion-label>
+                        <ion-select #removeSelectElem (ionChange)="onReasonSelect( $event , product )" [interfaceOptions]="customCancellationReasonSelectOptions" class="quantity-select hide" okText="Remove" cancelText="Cancel">
+                          <ion-select-option *ngFor="let reasonObj of this.cancellationReason" [value]="reasonObj.order_cancel_reason_id">{{reasonObj.order_cancel_reason}}</ion-select-option>
                         </ion-select>
                   </ion-button>
-
-                  <ion-button class="font-13 remove-btn" fill="clear" (click)="onRemoveSelectClick(ind)">
-                      <ion-icon name="trash" class="icon-trash remove-btn-icon"></ion-icon>
-                      <ion-label class="remove-btn-label">Remove</ion-label>
-                      <ion-select #removeSelectElem (ionChange)="onReasonSelect( $event , product )" [interfaceOptions]="customCancellationReasonSelectOptions" class="quantity-select hide" okText="Remove" cancelText="Cancel">
-                        <ion-select-option *ngFor="let reasonObj of this.cancellationReason" [value]="reasonObj.order_cancel_reason_id">{{reasonObj.order_cancel_reason}}</ion-select-option>
-                      </ion-select>
-                </ion-button>
-                  
+                </div>
                   <!-- <span (click)="onRemoveProduct( product )">
                     <ion-icon name="trash" class="icon-trash"></ion-icon>
                     <ion-label class="icon-trash-label">
@@ -164,7 +165,7 @@
                 <ion-label><h3>Sub total</h3></ion-label>
               </ion-col>
               <ion-col size="3">
-                  <ion-label><h3>₹{{this.getTotalAmount()}}</h3></ion-label>
+                  <ion-label><h3>₹{{this.getSubTotalAmount()}}</h3></ion-label>
               </ion-col>
           </ion-row>
           <ion-row class="border-bottom-light-shade">
@@ -180,7 +181,7 @@
               <ion-label><h3>Total</h3></ion-label>
             </ion-col>
             <ion-col size="3">
-                <ion-label><h3>₹{{this.getTotalAmount()-orderInfo.discount_amount}}</h3></ion-label>
+                <ion-label><h3>₹{{this.getTotalAmount( orderInfo )}}</h3></ion-label>
             </ion-col>
           </ion-row>
         </ion-grid>
