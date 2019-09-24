@@ -93,8 +93,10 @@ export class HomePage implements OnInit {
 
 
   onSaveChangesClick() {
+    this.showLoading('Processing...');
     this.ordersService.bulkUpdate( this.orderId , Object.values(this.updatedProducts) )
       .subscribe( (data: any) => {
+        this.hideLoading();
         if ( data.status === 'success' ) {
           this.presentToast( data.message );
           this.hasChangesInQuantity = false;
@@ -185,11 +187,11 @@ export class HomePage implements OnInit {
     selectBox.toArray()[i].open();
   }
 
-  async presentToast( message: string = '' , duration: number = 2000 , color: string = 'primary' ) {
+  async presentToast( message: string = '' , duration: number = 2000 , color: string = 'dark' ) {
     const toast = await this.toastController.create({
       message,
       duration,
-      position: 'bottom',
+      position: 'middle',
       color
     });
     toast.present();
