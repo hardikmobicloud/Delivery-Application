@@ -31,6 +31,14 @@ export class OrdersService {
     return request;
   }
 
+  markOrderAsDelivered( order_id: string, customer_id: string, shop_id: string, delivery_boy_id: string ) {
+    return this.httpClient.post(
+      `${this.apiUrl}?function=orderStatus`,
+      { customer_id , order_id , shop_id, delivery_boy_id } ,
+      { responseType: 'json', headers: this.headers }
+    );
+  }
+
   getOrderDetails( customer_id: string, order_id: string, shop_id: string ) {
     return this.httpClient.post(
       `${this.apiUrl}?function=getOrdersDetail`,
@@ -53,23 +61,6 @@ export class OrdersService {
       { responseType: 'json', headers: this.headers }
     );
   }
-
-  // updateProductQuantity( order_id: string, product_id: string, product_quantity: string ) {
-  //   return this.httpClient.post(
-  //     `${this.apiUrl}?function=updateOrRemoveProduct`,
-  //     { order_id , product_id , product_quantity } ,
-  //     { responseType: 'json', headers: this.headers }
-  //   );
-  // }
-
-
-  // removeProduct( order_id: string, product_id: string ) {
-  //   return this.httpClient.post(
-  //     `${this.apiUrl}?function=updateOrRemoveProduct`,
-  //     { order_id , product_id } ,
-  //     { responseType: 'json', headers: this.headers }
-  //   );
-  // }
 
   getOrderById( orderId: string ) {
     let orderInfo: object;

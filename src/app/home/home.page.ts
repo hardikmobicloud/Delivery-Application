@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import { LoadingController, IonSelect, ToastController, AlertController } from '@ionic/angular';
+import { CookieService } from 'ngx-cookie-service';
 
 import { OrdersService } from '../services/orders.service';
 
@@ -14,11 +15,13 @@ export class HomePage implements OnInit {
   orderId         = '';
   custId          = '';
   shopId          = '';
+  deliveryBoyId   = '';
   orderInfo: any  = {};
   productsList    = [];
   newProductsList = [];
   oldProductsList = [];
   order: any      = {};
+  orderDelivered  = false;
   hasChangesInQuantity  = false;
   updatedProducts = {};
   cancellationReason  = [
@@ -55,7 +58,8 @@ export class HomePage implements OnInit {
                private loadingCtrl: LoadingController,
                private ordersService: OrdersService,
                public toastController: ToastController,
-               public alertController: AlertController ) {}
+               public alertController: AlertController,
+               public cookieService: CookieService ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
@@ -66,6 +70,7 @@ export class HomePage implements OnInit {
       this.orderId = paramMap.get( 'orderId' );
       this.custId  = paramMap.get( 'customerId' );
       this.shopId  = paramMap.get( 'shopId' );
+      this.deliveryBoyId  = this.cookieService.get( 'delPerId' );
       this.fetchOrderDetails();
       // this.fetchCancellationReason();
     });
@@ -92,7 +97,18 @@ export class HomePage implements OnInit {
     });
   }
 
-
+  markOrderAsDelivered() {
+    this.showLoading('Processing...');
+    this.ordersService.markOrderAsDelivered( this.orderId, this.custId, this.shopId, this.deliveryBoyId )
+      .subscribe( (data: any) => {
+        this.hideLoading();
+        if ( data.status === 'success' ) {
+          this.orderDelivered = true;
+        } else {
+          this.presentToast( data.message , 2000, 'danger' );
+        }
+      });
+  }
 
   onSaveChangesClick() {
     this.showLoading('Processing...');
@@ -198,40 +214,6 @@ export class HomePage implements OnInit {
     });
     toast.present();
   }
-
-  // onRemoveProduct( product: any ) {
-  //   this.presentAlertConfirm( () => {
-  //     this.ordersService.removeProduct( this.orderId , product.product_id )
-  //     .subscribe( (data: any) => {
-  //         if ( data.status === 'success' ) {
-  //           this.presentToast( data.message );
-  //           this.removeProductFromList( product.product_id );
-  //         } else {
-  //           this.presentToast( data.message , 2000, 'danger' );
-  //         }
-  //     });
-  //   });
-  // }
-
-  // async presentAlertConfirm( confirmHandler ) {
-  //   const alert = await this.alertController.create({
-  //     header: 'Confirm!',
-  //     message: 'Are you sure, you want to <strong>remove</strong> this product from the order?',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         cssClass: 'secondary'
-  //       }, {
-  //         text: 'Confirm',
-  //         cssClass: 'secondary',
-  //         handler: confirmHandler
-  //       }
-  //     ]
-  //   });
-
-  //   await alert.present();
-  // }
 
   arrayFill( x: string ) {
     const y = parseInt( x , 10 );

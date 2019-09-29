@@ -192,7 +192,7 @@
                   <ion-button expand="block" *ngIf="this.hasChangesInQuantity" (click)="onSaveChangesClick()">
                     Save Changes
                   </ion-button>
-                  <ion-button color="secondary" expand="block" *ngIf="!this.hasChangesInQuantity">
+                  <ion-button color="secondary" expand="block" (click)="markOrderAsDelivered()" *ngIf="!this.hasChangesInQuantity && !this.orderDelivered">
                       Mark As Delivered
                   </ion-button>
                 </ion-col>

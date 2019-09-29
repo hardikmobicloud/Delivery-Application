@@ -65,6 +65,17 @@ ion-button{
     --padding-top : 0;
     --padding-bottom : 0;
   }
+
+  .avatar-text {
+    background: var(--ion-color-light-tint);
+    border: solid 1px var(--ion-color-light-shade);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2.4;
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    text-transform: uppercase;
+  }
   
   .row-space {
     padding-bottom: 5px;

@@ -27,8 +27,11 @@ export class ListPage implements OnInit {
         return;
       }
       this.shopId = paramMap.get( 'shopId' );
-      this.fetchPendingOrders();
     });
+
+    if ( this.shopId ) {
+      this.fetchPendingOrders();
+    }
   }
 
   onRefresh() {
