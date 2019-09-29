@@ -19,7 +19,7 @@ const routes: Routes = [
         loadChildren : () => import('./home/home.module').then(m => m.HomePageModule)
       },
       {
-        path : ':customerId/:orderId',
+        path : ':customerId/:orderId/:shopId',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) // Just another way to loadChildren
       }
     ]

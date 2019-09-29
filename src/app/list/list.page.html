@@ -138,7 +138,7 @@
               <ion-grid class="ion-no-padding">
                 <ion-row>
                   <ion-col size="6" class="ion-no-padding">
-                    <a href="tel:9944221974">
+                    <a href="tel:{{order.mobile_no}}">
                       <ion-icon
                         class="circle border-primary padding"
                         color="primary"
@@ -162,7 +162,7 @@
           <ion-row>
             <ion-col size="2"></ion-col>
             <ion-col size="8">
-              <ion-button expand="block" [routerLink]="'/detail/'+order.customer_id+'/'+order.order_id" routerLinkActive="router-link-active">
+              <ion-button expand="block" [routerLink]="'/detail/'+order.customer_id+'/'+order.order_id+'/'+this.shopId" routerLinkActive="router-link-active">
                 View Order Details
               </ion-button>
             </ion-col>

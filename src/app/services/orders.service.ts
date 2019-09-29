@@ -31,10 +31,10 @@ export class OrdersService {
     return request;
   }
 
-  getOrderDetails( customer_Id: string, order_id: string ) {
+  getOrderDetails( customer_id: string, order_id: string, shop_id: string ) {
     return this.httpClient.post(
       `${this.apiUrl}?function=getOrdersDetail`,
-      { customer_Id , order_id } ,
+      { customer_id , order_id , shop_id } ,
       { responseType: 'json', headers: this.headers }
     );
   }

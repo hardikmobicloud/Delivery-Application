@@ -13,6 +13,7 @@ export class HomePage implements OnInit {
 
   orderId         = '';
   custId          = '';
+  shopId          = '';
   orderInfo: any  = {};
   productsList    = [];
   newProductsList = [];
@@ -58,12 +59,13 @@ export class HomePage implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
-      if ( !paramMap.has( 'customerId' ) && !paramMap.has( 'orderId' ) ) {
+      if ( !paramMap.has( 'customerId' ) && !paramMap.has( 'orderId' ) && !paramMap.has('shopId') ) {
         this.router.navigate( [ `/login` ] );
         return;
       }
       this.orderId = paramMap.get( 'orderId' );
       this.custId  = paramMap.get( 'customerId' );
+      this.shopId  = paramMap.get( 'shopId' );
       this.fetchOrderDetails();
       // this.fetchCancellationReason();
     });
@@ -79,7 +81,7 @@ export class HomePage implements OnInit {
 
   fetchOrderDetails() {
     this.showLoading();
-    this.ordersService.getOrderDetails( this.custId, this.orderId ).subscribe( ( data: any ) => {
+    this.ordersService.getOrderDetails( this.custId, this.orderId, this.shopId ).subscribe( ( data: any ) => {
       this.hideLoading();
       if ( data.status && data.status === 'success' && data.result ) {
         this.productsList     = data.result.product_info;
