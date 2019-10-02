@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router , ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
+import { CookieService } from 'ngx-cookie-service';
 
 import { OrdersService } from '../services/orders.service';
 
@@ -18,7 +19,8 @@ export class ListPage implements OnInit {
   constructor( private router: Router ,
                private activatedRoute: ActivatedRoute,
                private orderService: OrdersService,
-               private loadingCtrlr: LoadingController ) {}
+               private loadingCtrlr: LoadingController,
+               private cookieService: CookieService ) {}
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe( paramMap => {
@@ -39,9 +41,9 @@ export class ListPage implements OnInit {
   }
 
   fetchPendingOrders( forceFetch: boolean = false ) {
-    if ( this.orders.length < 1 || forceFetch ) {
+    if ( (this.orders.length < 1 || forceFetch) && this.cookieService.get('delPerId') ) {
       this.showLoading();
-      this.orderService.getPendeingOrders( this.shopId  ).subscribe( (data: any) => {
+      this.orderService.getPendeingOrders( this.shopId , this.cookieService.get('delPerId') ).subscribe( (data: any) => {
         this.hideLoading();
         if ( data.status === 'success' ) {
           this.orders = data.result;

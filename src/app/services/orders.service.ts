@@ -21,10 +21,10 @@ export class OrdersService {
     });
   }
 
-  getPendeingOrders( shop_id: string ) {
+  getPendeingOrders( shop_id: string, delivery_person_id: string ) {
     const request = this.httpClient.post(
       `${this.apiUrl}?function=getMyOrderList`,
-      { shop_id } ,
+      { shop_id , delivery_person_id } ,
       {responseType: 'json', headers: this.headers}
     );
     this.cachePendingOrders( request ); // To cache the data
