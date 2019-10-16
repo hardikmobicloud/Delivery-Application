@@ -23,6 +23,12 @@ export class ListPage implements OnInit {
                private cookieService: CookieService ) {}
 
   ngOnInit() {
+    // Redirec to Login Page, if user logged out and trying to access orders list
+    if ( !this.cookieService.get('delPerId') ) {
+      this.router.navigate( [ `/login` ] );
+      return;
+    }
+
     this.activatedRoute.paramMap.subscribe( paramMap => {
       if ( !paramMap.has( 'shopId' ) ) {
         this.router.navigate( [ `/login` ] );
