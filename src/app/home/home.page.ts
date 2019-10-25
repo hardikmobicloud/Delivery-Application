@@ -112,7 +112,7 @@ export class HomePage implements OnInit {
 
   onSaveChangesClick() {
     this.showLoading('Processing...');
-    this.ordersService.bulkUpdate( this.orderId , Object.values(this.updatedProducts) )
+    this.ordersService.bulkUpdate( this.custId,this.shopId , Object.values(this.updatedProducts) )
       .subscribe( (data: any) => {
         this.hideLoading();
         if ( data.status === 'success' ) {
@@ -184,7 +184,7 @@ export class HomePage implements OnInit {
   }
 
   getTotalAmount( orderInfo: any ) {
-    return this.getSubTotalAmount() - ( orderInfo.discount_amount ? orderInfo.discount_amount : 0 );
+    return this.getSubTotalAmount()+( parseInt(orderInfo.delivery_charges) ? parseInt(orderInfo.delivery_charges) : 0 ) - ( orderInfo.discount_amount ? orderInfo.discount_amount : 0 );
   }
 
   getSubTotalAmount() {

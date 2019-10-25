@@ -1,5 +1,7 @@
 {
   "name": "g2d-delivery",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

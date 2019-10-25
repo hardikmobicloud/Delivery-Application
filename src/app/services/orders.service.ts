@@ -54,10 +54,10 @@ export class OrdersService {
     );
   }
 
-  bulkUpdate( order_id: string, productsArr = [] ) {
+  bulkUpdate( customer_id: string,shop_id:string, productsArr = [] ) {
     return this.httpClient.post(
       `${this.apiUrl}?function=updateOrRemoveProduct`,
-      { customer_id: 2, product_list: productsArr } ,
+      { customer_id: customer_id,shop_id:shop_id, product_list: productsArr } ,
       { responseType: 'json', headers: this.headers }
     );
   }

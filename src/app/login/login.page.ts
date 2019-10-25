@@ -54,6 +54,7 @@ export class LoginPage implements OnInit {
 
       if ( data.status === 'success' ) {
         this.otp = data.result && data.result.otp ? data.result.otp : 0;
+        this.otpInput = data.result && data.result.otp ? data.result.otp : 0;
         this.shopId = data.result && data.result.shop_id ? data.result.shop_id : '';
         this.delPersonId = data.result && data.result.delivery_person_id ? data.result.delivery_person_id : '';
         this.delPersonEmail = data.result && data.result.email ? data.result.email : '';
