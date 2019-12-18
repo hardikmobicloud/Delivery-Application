@@ -28,6 +28,9 @@ plugins/
 plugins/android.json
 plugins/ios.json
 $RECYCLE.BIN/
+Generated-apk/
+my-release-key.jks
+my-release-key.keystore
 
 .DS_Store
 Thumbs.db
