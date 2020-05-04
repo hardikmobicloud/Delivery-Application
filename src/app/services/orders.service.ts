@@ -7,9 +7,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class OrdersService {
 
-  private headers     = new HttpHeaders({ 'Content-Type': 'application/json'});
+  private headers     = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded'});
   orderList = [];
-  private readonly apiUrl = 'http://newwavestech.com/grocery/api/delivery_api.php';
+  private readonly apiUrl = 'https://mobicloudtech.com/grocery/api/delivery_api.php';
 
   constructor( private httpClient: HttpClient ) {}
 

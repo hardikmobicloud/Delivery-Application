@@ -85,7 +85,7 @@ export class HomePage implements OnInit {
   }
 
   fetchOrderDetails() {
-    this.showLoading();
+    //this.showLoading();
     this.ordersService.getOrderDetails( this.custId, this.orderId, this.shopId ).subscribe( ( data: any ) => {
       this.hideLoading();
       if ( data.status && data.status === 'success' && data.result ) {
@@ -104,6 +104,8 @@ export class HomePage implements OnInit {
         this.hideLoading();
         if ( data.status === 'success' ) {
           this.orderDelivered = true;
+          this.fetchOrderDetails();
+
         } else {
           this.presentToast( data.message , 2000, 'danger' );
         }

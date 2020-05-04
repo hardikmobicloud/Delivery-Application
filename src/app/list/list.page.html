@@ -110,7 +110,8 @@
             </ion-col>
             <ion-col text-right size="3">
               <ion-text color="primary">
-                COD
+                <ion-label *ngIf="order.payment_mode=='1'">COD</ion-label>
+                <ion-label *ngIf="order.payment_mode=='2'">UPI</ion-label>
               </ion-text>
             </ion-col>
           </ion-row>

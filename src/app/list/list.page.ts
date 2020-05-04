@@ -40,8 +40,9 @@ export class ListPage implements OnInit {
     if ( this.shopId ) {
       this.fetchPendingOrders();
       // To refresh the pending orders every 30 seconds
-      setInterval( () => this.fetchPendingOrders(true, true) , 30000 );
+      setInterval( () => this.fetchPendingOrders(true, true) , 3000 );
     }
+
   }
 
   onRefresh() {
@@ -49,9 +50,10 @@ export class ListPage implements OnInit {
   }
 
   fetchPendingOrders( forceFetch: boolean = false, isBackgroundRefresh: boolean = false ) {
+  
     if ( (this.orders.length < 1 || forceFetch) && this.cookieService.get('delPerId') ) {
       if ( !isBackgroundRefresh ) {
-        this.showLoading();
+        // this.showLoading();
       }
       this.orderService.getPendeingOrders( this.shopId , this.cookieService.get('delPerId') ).subscribe( (data: any) => {
         if ( !isBackgroundRefresh ) {
